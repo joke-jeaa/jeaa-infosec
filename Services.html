@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offensive Security Services | JEAA Infosec</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #0f0f0f;
+      --bg-card: #141414;
+      --accent-cyan: #00d4ff;
+      --accent-purple: #a855f7;
+      --accent-magenta: #d946ef;
+      --gradient-primary: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+      --text-primary: #f0f0f0;
+      --text-secondary: #a0a0a0;
+      --text-muted: #666666;
+      --border: #1a1a1a;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    .bg-pattern {
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(168, 85, 247, 0.03) 0%, transparent 50%);
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--gradient-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .logo span {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent-cyan);
+    }
+
+    /* Page Header */
+    .page-header {
+      padding: 10rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(ellipse at 50% 0%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 100%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .page-header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .page-header p {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* Service Sections */
+    .service-section {
+      padding: 5rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .service-section:nth-child(even) {
+      background: var(--bg-secondary);
+    }
+
+    .service-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .service-header {
+      position: sticky;
+      top: 100px;
+    }
+
+    .service-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .service-header h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .service-header .tagline {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-header p {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .service-content h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .service-content h3::before {
+      content: '◆';
+      color: var(--accent-cyan);
+      font-size: 0.6rem;
+    }
+
+    .service-content ul {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .service-content li {
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .service-content li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--border);
+    }
+
+    .methodology-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      margin-top: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .methodology-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-primary);
+    }
+
+    .methodology-box h4 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-bottom: 1rem;
+    }
+
+    .methodology-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .step {
+      background: var(--bg-secondary);
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .step-num {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-right: 0.5rem;
+      font-weight: 600;
+    }
+
+    /* Pricing hint */
+    .pricing-hint {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: rgba(0, 212, 255, 0.05);
+      border-left: 3px solid var(--accent-cyan);
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .pricing-hint strong {
+      color: var(--text-primary);
+    }
+
+    /* CTA */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: var(--gradient-primary);
+      color: var(--bg-primary);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 6rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .cta-section h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .footer-tagline {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .service-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .service-header {
+        position: static;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body class="bg-pattern">
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🦅</div>
+        JEAA <span>INFOSEC</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="Services.html" class="active">Services</a></li>
+        <li><a href="About.html">About</a></li>
+        <li><a href="kev.html">KEV Tracker</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <h1>OFFENSIVE SECURITY SERVICES</h1>
+    <p>Manual-first penetration testing by a senior operator. Every engagement gets direct attention from 12+ years of offensive security experience.</p>
+  </header>
+
+  <!-- Web Application Testing -->
+  <section class="service-section" id="webapp">
+    <div class="service-inner">
+      <div class="service-header">
+        <div class="service-icon">🌐</div>
+        <div class="tagline">Application Security</div>
+        <h2>WEB APPLICATION & API PENETRATION TESTING</h2>
+        <p>Comprehensive manual testing of your web applications and APIs to identify vulnerabilities that automated scanners miss.</p>
+        <a href="#contact" class="btn btn-primary">Request Quote →</a>
+      </div>
+      <div class="service-content">
+        <h3>What's Tested</h3>
+        <ul>
+          <li>Authentication and session management flaws</li>
+          <li>Authorization and access control bypasses (IDOR, privilege escalation)</li>
+          <li>Injection vulnerabilities (SQL, NoSQL, LDAP, Command, Template)</li>
+          <li>Cross-site scripting (XSS) — reflected, stored, DOM-based</li>
+          <li>Server-side request forgery (SSRF)</li>
+          <li>Business logic flaws and workflow bypasses</li>
+          <li>API-specific issues (BOLA, BFLA, mass assignment, rate limiting)</li>
+          <li>File upload vulnerabilities</li>
+          <li>Sensitive data exposure and information leakage</li>
+        </ul>
+
+        <h3>Deliverables</h3>
+        <ul>
+          <li>Executive summary for leadership</li>
+          <li>Technical findings with proof-of-concept evidence</li>
+          <li>Risk ratings aligned to CVSS and business impact</li>
+          <li>Detailed remediation guidance</li>
+          <li>Debrief call to walk through findings</li>
+          <li>Retest of remediated vulnerabilities (included)</li>
+        </ul>
+
+        <div class="methodology-box">
+          <h4>Methodology</h4>
+          <div class="methodology-steps">
+            <div class="step"><span class="step-num">01</span> Recon & Mapping</div>
+            <div class="step"><span class="step-num">02</span> Auth Analysis</div>
+            <div class="step"><span class="step-num">03</span> Input Fuzzing</div>
+            <div class="step"><span class="step-num">04</span> Logic Testing</div>
+            <div class="step"><span class="step-num">05</span> Exploitation</div>
+            <div class="step"><span class="step-num">06</span> Reporting</div>
+          </div>
+        </div>
+
+        <div class="pricing-hint">
+          <strong>Typical engagement:</strong> 1-3 weeks depending on application complexity. Scoping call required to provide accurate estimate.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile Application Testing -->
+  <section class="service-section" id="mobile">
+    <div class="service-inner">
+      <div class="service-header">
+        <div class="service-icon">📱</div>
+        <div class="tagline">Mobile Security</div>
+        <h2>MOBILE APPLICATION TESTING</h2>
+        <p>iOS and Android security assessments covering the full attack surface — from binary analysis to backend API testing.</p>
+        <a href="#contact" class="btn btn-primary">Request Quote →</a>
+      </div>
+      <div class="service-content">
+        <h3>What's Tested</h3>
+        <ul>
+          <li>Binary protections (obfuscation, anti-tampering, root/jailbreak detection)</li>
+          <li>Insecure data storage (keychain, SharedPreferences, SQLite, logs)</li>
+          <li>Network communication security (certificate pinning, TLS configuration)</li>
+          <li>Authentication and session handling</li>
+          <li>Runtime manipulation and dynamic analysis</li>
+          <li>Inter-process communication (deeplinks, intents, URL schemes)</li>
+          <li>Backend API security testing</li>
+          <li>Third-party SDK and library risks</li>
+        </ul>
+
+        <h3>Platforms</h3>
+        <ul>
+          <li>iOS — physical device and Corellium-based testing</li>
+          <li>Android — physical device and emulator testing</li>
+          <li>Cross-platform frameworks (React Native, Flutter, Xamarin)</li>
+        </ul>
+
+        <div class="methodology-box">
+          <h4>Methodology</h4>
+          <div class="methodology-steps">
+            <div class="step"><span class="step-num">01</span> Static Analysis</div>
+            <div class="step"><span class="step-num">02</span> Binary Review</div>
+            <div class="step"><span class="step-num">03</span> Dynamic Testing</div>
+            <div class="step"><span class="step-num">04</span> API Testing</div>
+            <div class="step"><span class="step-num">05</span> Reporting</div>
+          </div>
+        </div>
+
+        <div class="pricing-hint">
+          <strong>Typical engagement:</strong> 1-2 weeks per platform. Bundle pricing available for iOS + Android.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cloud Security -->
+  <section class="service-section" id="cloud">
+    <div class="service-inner">
+      <div class="service-header">
+        <div class="service-icon">☁️</div>
+        <div class="tagline">Cloud Security</div>
+        <h2>CLOUD SECURITY ASSESSMENT</h2>
+        <p>Configuration review and penetration testing of your cloud infrastructure. Find misconfigurations and attack paths before attackers do.</p>
+        <a href="#contact" class="btn btn-primary">Request Quote →</a>
+      </div>
+      <div class="service-content">
+        <h3>What's Tested</h3>
+        <ul>
+          <li>IAM policies and privilege escalation paths</li>
+          <li>Storage bucket/blob permissions and data exposure</li>
+          <li>Network security groups and segmentation</li>
+          <li>Serverless function security (Lambda, Azure Functions, Cloud Functions)</li>
+          <li>Container and Kubernetes security</li>
+          <li>Secrets management and credential exposure</li>
+          <li>Logging and monitoring gaps</li>
+          <li>Cross-account trust relationships</li>
+        </ul>
+
+        <h3>Platforms</h3>
+        <ul>
+          <li>Amazon Web Services (AWS)</li>
+          <li>Microsoft Azure</li>
+          <li>Google Cloud Platform (GCP)</li>
+        </ul>
+
+        <div class="methodology-box">
+          <h4>Approach</h4>
+          <div class="methodology-steps">
+            <div class="step"><span class="step-num">01</span> Config Review</div>
+            <div class="step"><span class="step-num">02</span> IAM Analysis</div>
+            <div class="step"><span class="step-num">03</span> Attack Path Mapping</div>
+            <div class="step"><span class="step-num">04</span> Exploitation</div>
+            <div class="step"><span class="step-num">05</span> Reporting</div>
+          </div>
+        </div>
+
+        <div class="pricing-hint">
+          <strong>Typical engagement:</strong> 1-2 weeks. Read-only access to cloud console required for comprehensive review.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Internal Network Testing -->
+  <section class="service-section" id="internal">
+    <div class="service-inner">
+      <div class="service-header">
+        <div class="service-icon">🔒</div>
+        <div class="tagline">Network Security</div>
+        <h2>INTERNAL NETWORK PENETRATION TESTING</h2>
+        <p>Assume breach testing from inside your network. Assess how far an attacker could go after initial access.</p>
+        <a href="#contact" class="btn btn-primary">Request Quote →</a>
+      </div>
+      <div class="service-content">
+        <h3>What's Tested</h3>
+        <ul>
+          <li>Active Directory security and misconfigurations</li>
+          <li>Credential harvesting and password attacks</li>
+          <li>Lateral movement techniques</li>
+          <li>Privilege escalation to domain admin</li>
+          <li>Network segmentation effectiveness</li>
+          <li>Trust relationships and delegation issues</li>
+          <li>Certificate services (ADCS) attacks</li>
+          <li>Sensitive data access and exfiltration paths</li>
+        </ul>
+
+        <h3>Delivery Options</h3>
+        <ul>
+          <li><strong>On-site:</strong> Tester physically present at your location</li>
+          <li><strong>Remote:</strong> Via VPN access or jump host</li>
+          <li><strong>Zima Red Device:</strong> Pre-configured assessment appliance shipped to your site, securely tunneled</li>
+        </ul>
+
+        <div class="methodology-box">
+          <h4>Methodology</h4>
+          <div class="methodology-steps">
+            <div class="step"><span class="step-num">01</span> Network Recon</div>
+            <div class="step"><span class="step-num">02</span> Service Enum</div>
+            <div class="step"><span class="step-num">03</span> Credential Attacks</div>
+            <div class="step"><span class="step-num">04</span> Lateral Movement</div>
+            <div class="step"><span class="step-num">05</span> Priv Escalation</div>
+            <div class="step"><span class="step-num">06</span> Reporting</div>
+          </div>
+        </div>
+
+        <div class="pricing-hint">
+          <strong>Typical engagement:</strong> 1-2 weeks. Scoping based on network size and objectives.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" id="contact">
+    <div class="cta-inner">
+      <h2>LET'S SCOPE YOUR ASSESSMENT</h2>
+      <p>Every engagement starts with a technical scoping call. No sales pressure — just a conversation about your environment and security goals.</p>
+      <a href="mailto:contact@jeaainfosec.com" class="btn btn-primary">Schedule Consultation →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-tagline">Veteran-Owned Cybersecurity Consulting | Offensive Security | Research-Driven Defense | Servicio en Español</div>
+      <p>© 2025 JEAA Infosec LLC. Veteran-Owned Small Business.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
