@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | JEAA Infosec</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #0f0f0f;
+      --bg-card: #141414;
+      --accent-cyan: #00d4ff;
+      --accent-purple: #a855f7;
+      --accent-magenta: #d946ef;
+      --gradient-primary: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+      --text-primary: #f0f0f0;
+      --text-secondary: #a0a0a0;
+      --text-muted: #666666;
+      --border: #1a1a1a;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    .bg-pattern {
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(168, 85, 247, 0.03) 0%, transparent 50%);
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--gradient-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .logo span {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent-cyan);
+    }
+
+    /* Page Header */
+    .page-header {
+      padding: 10rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(ellipse at 50% 0%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 100%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .page-header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .page-header p {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* About Content */
+    .about-section {
+      padding: 5rem 2rem;
+    }
+
+    .about-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .founder-intro {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+      margin-bottom: 4rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .founder-photo {
+      width: 200px;
+      height: 200px;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .founder-photo::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-primary);
+    }
+
+    .founder-bio h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+
+    .founder-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.5rem;
+    }
+
+    .founder-bio p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    /* Story sections */
+    .story-section {
+      margin-bottom: 3rem;
+    }
+
+    .story-section h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .story-section h3::before {
+      content: '//';
+      font-family: 'IBM Plex Mono', monospace;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .story-section p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    /* Credentials Grid */
+    .credentials {
+      background: var(--bg-secondary);
+      padding: 4rem 2rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .credentials-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .credentials h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .cred-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .cred-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cred-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-primary);
+    }
+
+    .cred-card h4 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-bottom: 1rem;
+    }
+
+    .cred-list {
+      list-style: none;
+    }
+
+    .cred-list li {
+      padding: 0.5rem 0;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cred-list li:last-child {
+      border-bottom: none;
+    }
+
+    /* Philosophy */
+    .philosophy {
+      padding: 5rem 2rem;
+    }
+
+    .philosophy-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .philosophy h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .philosophy-item {
+      padding: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent-cyan);
+    }
+
+    .philosophy-item h4 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .philosophy-item p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* CTA */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: var(--gradient-primary);
+      color: var(--bg-primary);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+    }
+
+    .cta-section {
+      padding: 5rem 2rem;
+      text-align: center;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      position: relative;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .cta-section h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .footer-tagline {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .founder-intro {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .founder-photo {
+        margin: 0 auto;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body class="bg-pattern">
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🦅</div>
+        JEAA <span>INFOSEC</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="Services.html">Services</a></li>
+        <li><a href="About.html" class="active">About</a></li>
+        <li><a href="kev.html">KEV Tracker</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <h1>ABOUT JEAA INFOSEC</h1>
+    <p>Veteran-owned boutique penetration testing. One senior operator. Zero checkbox theater.</p>
+  </header>
+
+  <!-- Founder Bio -->
+  <section class="about-section">
+    <div class="about-inner">
+      <div class="founder-intro">
+        <div class="founder-photo">👤</div>
+        <div class="founder-bio">
+          <h2>ANTONIO</h2>
+          <div class="founder-title">Founder & Principal Consultant</div>
+          <p>
+            I spent 11 years in the U.S. Air Force as a Cyber Operator, learning how to break things in environments where the stakes were real. After transitioning out, I took that experience into the private sector — doing penetration testing, bug bounty, and red team work across web applications, APIs, mobile platforms, and cloud environments.
+          </p>
+          <p>
+            JEAA Infosec is the natural extension of that work: a small, focused operation where every engagement gets my direct attention. No junior analysts running automated scans. No bloated reports full of scanner output. Just manual testing, real findings, and clear guidance on how to fix them.
+          </p>
+        </div>
+      </div>
+
+      <div class="story-section">
+        <h3>WHY BOUTIQUE</h3>
+        <p>
+          I've seen how the big consulting firms operate. You sign a contract with impressive names on the letterhead, then your actual test gets handed off to whoever's available — sometimes someone fresh out of training running Nessus and copying the output into a template.
+        </p>
+        <p>
+          That's not how I work. When you engage JEAA, you get me. Twelve years of offensive security experience. Active Synack Red Team member. Someone who's still in the trenches finding vulnerabilities, not managing a pipeline.
+        </p>
+      </div>
+
+      <div class="story-section">
+        <h3>THE SYNACK DIFFERENCE</h3>
+        <p>
+          I'm an active member of the Synack Red Team — a vetted community of security researchers who test some of the most hardened targets in the world. That means I'm constantly sharpening my skills against real applications with real defenses, not just training environments.
+        </p>
+        <p>
+          The bug bounty mindset matters. It keeps you honest. If you can't find real vulnerabilities on targets that have already been tested by other skilled researchers, you're not as good as you think you are.
+        </p>
+      </div>
+
+      <div class="story-section">
+        <h3>MILITARY BACKGROUND</h3>
+        <p>
+          11 years in Air Force cyber operations taught me more than just technical skills. It taught me how to operate under pressure, communicate clearly with people who don't speak "security," and deliver results on a timeline.
+        </p>
+        <p>
+          Mission focus. Clear reporting. No excuses. That's the standard I bring to every engagement.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Credentials -->
+  <section class="credentials">
+    <div class="credentials-inner">
+      <h3>CREDENTIALS & EXPERIENCE</h3>
+      <div class="cred-grid">
+        <div class="cred-card">
+          <h4>Certifications</h4>
+          <ul class="cred-list">
+            <li>GPEN — GIAC Penetration Tester</li>
+            <li>GWAPT — GIAC Web App Pen Tester</li>
+            <li>GCFA — GIAC Certified Forensic Analyst</li>
+          </ul>
+        </div>
+        <div class="cred-card">
+          <h4>Active Roles</h4>
+          <ul class="cred-list">
+            <li>Synack Red Team Member</li>
+            <li>Independent Security Researcher</li>
+            <li>JEAA Infosec LLC — Founder</li>
+          </ul>
+        </div>
+        <div class="cred-card">
+          <h4>Military Service</h4>
+          <ul class="cred-list">
+            <li>U.S. Air Force — 11 Years</li>
+            <li>Cyber Operations Specialty</li>
+            <li>Honorable Discharge</li>
+          </ul>
+        </div>
+        <div class="cred-card">
+          <h4>Technical Focus</h4>
+          <ul class="cred-list">
+            <li>Web Application & API Security</li>
+            <li>Mobile Application Testing</li>
+            <li>Cloud Security (AWS, Azure, GCP)</li>
+            <li>Active Directory & Networks</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="philosophy">
+    <div class="philosophy-inner">
+      <h3>HOW I WORK</h3>
+      <div class="philosophy-grid">
+        <div class="philosophy-item">
+          <h4>MANUAL FIRST</h4>
+          <p>Automated scanners are tools, not testers. They assist my work but don't replace thinking. Every finding in your report comes from hands-on testing.</p>
+        </div>
+        <div class="philosophy-item">
+          <h4>CLEAR COMMUNICATION</h4>
+          <p>You'll know what I'm doing and what I'm finding throughout the engagement. Critical issues get flagged immediately, not buried in a report.</p>
+        </div>
+        <div class="philosophy-item">
+          <h4>ACTIONABLE RESULTS</h4>
+          <p>Reports are written for humans, not compliance checkboxes. You'll get clear descriptions of what's broken, why it matters, and how to fix it.</p>
+        </div>
+        <div class="philosophy-item">
+          <h4>NO BLOAT</h4>
+          <p>I don't pad reports with informational findings to make them look impressive. You get what matters: real vulnerabilities that real attackers could exploit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <div class="cta-inner">
+      <h2>READY TO WORK TOGETHER?</h2>
+      <p>Let's have a technical conversation about your security needs. No sales pitch, just a scoping discussion.</p>
+      <a href="mailto:contact@jeaainfosec.com" class="btn btn-primary">Get In Touch →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-tagline">Veteran-Owned Cybersecurity Consulting | Offensive Security | Research-Driven Defense | Servicio en Español</div>
+      <p>© 2025 JEAA Infosec LLC. Veteran-Owned Small Business.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
