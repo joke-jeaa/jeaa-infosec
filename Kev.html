@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KEV Vulnerabilities | JEAA Infosec</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #0f0f0f;
+      --bg-card: #141414;
+      --accent-cyan: #00d4ff;
+      --accent-purple: #a855f7;
+      --accent-magenta: #d946ef;
+      --accent-orange: #f97316;
+      --accent-yellow: #eab308;
+      --gradient-primary: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+      --text-primary: #f0f0f0;
+      --text-secondary: #a0a0a0;
+      --text-muted: #666666;
+      --border: #1a1a1a;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    .bg-pattern {
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(168, 85, 247, 0.03) 0%, transparent 50%);
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--gradient-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .logo span {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent-cyan);
+    }
+
+    /* Page Header */
+    .page-header {
+      padding: 10rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(ellipse at 50% 0%, rgba(249, 115, 22, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 100%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .kev-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(249, 115, 22, 0.15);
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-orange);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .kev-badge::before {
+      content: '⚠';
+    }
+
+    .page-header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .page-header p {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* Content sections */
+    .content-section {
+      padding: 5rem 2rem;
+    }
+
+    .content-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-bottom: 1rem;
+    }
+
+    .content-section h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+    }
+
+    .content-section p {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .content-section a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+    }
+
+    .content-section a:hover {
+      text-decoration: underline;
+    }
+
+    /* Info boxes */
+    .info-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+    }
+
+    .info-box.warning::before {
+      background: var(--accent-orange);
+    }
+
+    .info-box.info::before {
+      background: var(--accent-cyan);
+    }
+
+    .info-box h4 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .info-box.warning h4 {
+      color: var(--accent-orange);
+    }
+
+    .info-box.info h4 {
+      color: var(--accent-cyan);
+    }
+
+    .info-box p {
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
+    /* Stats grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .stat-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-primary);
+    }
+
+    .stat-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* KEV Table */
+    .kev-section {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .kev-table-wrapper {
+      overflow-x: auto;
+      margin: 2rem 0;
+    }
+
+    .kev-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .kev-table th {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-align: left;
+      padding: 1rem;
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .kev-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .kev-table tr:hover {
+      background: var(--bg-card);
+    }
+
+    .cve-id {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--accent-cyan);
+      white-space: nowrap;
+    }
+
+    .vendor {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .vuln-type {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    .severity {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .severity.critical {
+      background: rgba(249, 115, 22, 0.2);
+      color: var(--accent-orange);
+      border: 1px solid rgba(249, 115, 22, 0.3);
+    }
+
+    .severity.high {
+      background: rgba(234, 179, 8, 0.2);
+      color: var(--accent-yellow);
+      border: 1px solid rgba(234, 179, 8, 0.3);
+    }
+
+    .date-added {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* Why it matters */
+    .matters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .matter-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+    }
+
+    .matter-card h4 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .matter-card h4::before {
+      content: '◆';
+      color: var(--accent-cyan);
+      font-size: 0.6rem;
+    }
+
+    .matter-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 0;
+    }
+
+    /* How we help */
+    .help-section {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+    }
+
+    .help-list {
+      list-style: none;
+      margin: 2rem 0;
+    }
+
+    .help-list li {
+      padding: 1rem 0;
+      padding-left: 2rem;
+      position: relative;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .help-list li:last-child {
+      border-bottom: none;
+    }
+
+    .help-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: bold;
+    }
+
+    .help-list strong {
+      color: var(--text-primary);
+    }
+
+    /* Resources */
+    .resources {
+      margin: 2rem 0;
+    }
+
+    .resource-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      margin-bottom: 0.75rem;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .resource-link:hover {
+      border-color: var(--accent-cyan);
+      transform: translateX(4px);
+      box-shadow: 0 5px 20px rgba(0, 212, 255, 0.1);
+    }
+
+    .resource-icon {
+      font-size: 1.5rem;
+    }
+
+    .resource-text {
+      flex: 1;
+    }
+
+    .resource-text h5 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .resource-text p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .resource-arrow {
+      color: var(--accent-cyan);
+    }
+
+    /* CTA */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: var(--gradient-primary);
+      color: var(--bg-primary);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+      text-decoration: none;
+    }
+
+    .cta-section {
+      padding: 5rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .cta-section h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .footer-tagline {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .footer-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .kev-table {
+        font-size: 0.8rem;
+      }
+
+      .kev-table th,
+      .kev-table td {
+        padding: 0.75rem 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-pattern">
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🦅</div>
+        JEAA <span>INFOSEC</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="Services.html">Services</a></li>
+        <li><a href="About.html">About</a></li>
+        <li><a href="kev.html" class="active">KEV Tracker</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="kev-badge">Active Exploitation</div>
+    <h1>CISA KNOWN EXPLOITED VULNERABILITIES</h1>
+    <p>The KEV catalog is CISA's authoritative list of vulnerabilities actively exploited in the wild. If it's on this list, attackers are using it right now.</p>
+  </header>
+
+  <!-- What is KEV -->
+  <section class="content-section">
+    <div class="content-inner">
+      <div class="section-label">// Understanding KEV</div>
+      <h2>WHAT IS THE KEV CATALOG?</h2>
+      <p>
+        CISA (Cybersecurity and Infrastructure Security Agency) maintains the Known Exploited Vulnerabilities (KEV) catalog — an authoritative source of vulnerabilities that have been confirmed as actively exploited in real-world attacks. Unlike theoretical vulnerabilities or those with proof-of-concept exploits, every entry in KEV has evidence of actual malicious use.
+      </p>
+      <p>
+        For Federal Civilian Executive Branch (FCEB) agencies, <strong>Binding Operational Directive (BOD) 22-01</strong> requires remediation of KEV vulnerabilities within prescribed timeframes. But the guidance is clear for everyone: if it's on the KEV list, it should be at the top of your patch priority.
+      </p>
+
+      <div class="info-box warning">
+        <h4>Why This Matters</h4>
+        <p>The KEV catalog isn't about theoretical risk — it's about confirmed, active exploitation. When a CVE gets added to KEV, threat actors are already using it against real targets. The window between KEV addition and widespread automated scanning is shrinking.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-value">1200+</div>
+          <div class="stat-label">Total KEV Entries</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">~10</div>
+          <div class="stat-label">New CVEs Weekly</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">21 Days</div>
+          <div class="stat-label">Typical Deadline</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent KEVs -->
+  <section class="content-section kev-section">
+    <div class="content-inner">
+      <div class="section-label">// Recent Additions</div>
+      <h2>NOTABLE RECENT KEV ENTRIES</h2>
+      <p>These vulnerabilities were recently added to the KEV catalog based on confirmed active exploitation. Verify exposure and prioritize remediation.</p>
+
+      <div class="kev-table-wrapper">
+        <table class="kev-table">
+          <thead>
+            <tr>
+              <th>CVE ID</th>
+              <th>Vendor / Product</th>
+              <th>Vulnerability</th>
+              <th>Severity</th>
+              <th>Added</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="cve-id">CVE-2025-55182</span></td>
+              <td>
+                <span class="vendor">Meta</span><br>
+                <span class="vuln-type">React Server Components</span>
+              </td>
+              <td>Remote Code Execution via payload decoding flaw</td>
+              <td><span class="severity critical">Critical</span></td>
+              <td><span class="date-added">Dec 2025</span></td>
+            </tr>
+            <tr>
+              <td><span class="cve-id">CVE-2025-62215</span></td>
+              <td>
+                <span class="vendor">Microsoft</span><br>
+                <span class="vuln-type">Windows Kernel</span>
+              </td>
+              <td>Race condition privilege escalation to SYSTEM</td>
+              <td><span class="severity critical">Critical</span></td>
+              <td><span class="date-added">Dec 2025</span></td>
+            </tr>
+            <tr>
+              <td><span class="cve-id">CVE-2025-9242</span></td>
+              <td>
+                <span class="vendor">WatchGuard</span><br>
+                <span class="vuln-type">Firewalls</span>
+              </td>
+              <td>Authentication bypass in management interface</td>
+              <td><span class="severity critical">Critical</span></td>
+              <td><span class="date-added">Dec 2025</span></td>
+            </tr>
+            <tr>
+              <td><span class="cve-id">CVE-2025-41244</span></td>
+              <td>
+                <span class="vendor">Broadcom VMware</span><br>
+                <span class="vuln-type">Aria Operations</span>
+              </td>
+              <td>Privilege escalation from VM user to root</td>
+              <td><span class="severity high">High</span></td>
+              <td><span class="date-added">Dec 2025</span></td>
+            </tr>
+            <tr>
+              <td><span class="cve-id">CVE-2025-24893</span></td>
+              <td>
+                <span class="vendor">XWiki</span><br>
+                <span class="vuln-type">XWiki Platform</span>
+              </td>
+              <td>Remote code execution via template injection</td>
+              <td><span class="severity critical">Critical</span></td>
+              <td><span class="date-added">Dec 2025</span></td>
+            </tr>
+            <tr>
+              <td><span class="cve-id">CVE-2025-54309</span></td>
+              <td>
+                <span class="vendor">CrushFTP</span><br>
+                <span class="vuln-type">File Transfer Server</span>
+              </td>
+              <td>Authentication bypass via alternate channel</td>
+              <td><span class="severity critical">Critical</span></td>
+              <td><span class="date-added">Nov 2025</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-box info">
+        <h4>Stay Current</h4>
+        <p>The KEV catalog is updated frequently — sometimes multiple times per week. Subscribe to CISA alerts or use automated vulnerability management tools to stay informed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why it matters -->
+  <section class="content-section">
+    <div class="content-inner">
+      <div class="section-label">// Practical Application</div>
+      <h2>HOW TO USE THE KEV CATALOG</h2>
+      <p>
+        The KEV catalog should be a core input to your vulnerability management prioritization. Here's how organizations should integrate it:
+      </p>
+
+      <div class="matters-grid">
+        <div class="matter-card">
+          <h4>PRIORITIZE REMEDIATION</h4>
+          <p>KEV vulnerabilities should jump to the front of your patch queue. Active exploitation means attackers have working exploits.</p>
+        </div>
+        <div class="matter-card">
+          <h4>ASSET INVENTORY MATTERS</h4>
+          <p>You can't patch what you don't know about. Maintain accurate asset inventories to quickly identify exposure when new KEVs drop.</p>
+        </div>
+        <div class="matter-card">
+          <h4>AUTOMATE MONITORING</h4>
+          <p>Manual tracking doesn't scale. Integrate KEV feeds into your vulnerability scanners and SIEM for immediate visibility.</p>
+        </div>
+        <div class="matter-card">
+          <h4>TEST YOUR CONTROLS</h4>
+          <p>Penetration testing should include attempts to exploit KEV vulnerabilities. Validate that your patches are actually effective.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How JEAA helps -->
+  <section class="content-section help-section">
+    <div class="content-inner">
+      <div class="section-label">// How We Help</div>
+      <h2>KEV-INFORMED PENETRATION TESTING</h2>
+      <p>
+        JEAA Infosec integrates KEV awareness into every engagement. We don't just run scanners — we actively test for exploitability of known threats relevant to your environment.
+      </p>
+
+      <ul class="help-list">
+        <li>
+          <strong>Active exploitation validation</strong> — We test whether KEV vulnerabilities in your environment are actually exploitable, not just "present" according to version detection.
+        </li>
+        <li>
+          <strong>Compensating control assessment</strong> — Can't patch immediately? We assess whether your compensating controls actually prevent exploitation.
+        </li>
+        <li>
+          <strong>Attack chain analysis</strong> — How do KEV vulnerabilities fit into broader attack paths? We map exploitation scenarios specific to your infrastructure.
+        </li>
+        <li>
+          <strong>Prioritized remediation guidance</strong> — Clear, actionable recommendations based on actual risk to your organization.
+        </li>
+      </ul>
+
+      <div class="resources">
+        <a href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener" class="resource-link">
+          <span class="resource-icon">📋</span>
+          <div class="resource-text">
+            <h5>CISA KEV Catalog</h5>
+            <p>Official catalog with full vulnerability list and remediation deadlines</p>
+          </div>
+          <span class="resource-arrow">→</span>
+        </a>
+        <a href="https://www.cisa.gov/known-exploited-vulnerabilities" target="_blank" rel="noopener" class="resource-link">
+          <span class="resource-icon">📖</span>
+          <div class="resource-text">
+            <h5>BOD 22-01 Guidance</h5>
+            <p>CISA's binding directive on KEV remediation requirements</p>
+          </div>
+          <span class="resource-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <div class="cta-inner">
+      <h2>WORRIED ABOUT KEV EXPOSURE?</h2>
+      <p>Let's assess your environment for actively exploited vulnerabilities. Get clarity on your real risk, not just scanner output.</p>
+      <a href="mailto:contact@jeaainfosec.com" class="btn btn-primary">Request Assessment →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-tagline">Veteran-Owned Cybersecurity Consulting | Offensive Security | Research-Driven Defense | Servicio en Español</div>
+      <p>© 2025 JEAA Infosec LLC. Veteran-Owned Small Business.</p>
+      <p class="footer-note">KEV data sourced from CISA. This page is for educational purposes.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
