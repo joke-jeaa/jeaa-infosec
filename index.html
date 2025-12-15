@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JEAA Infosec | Veteran-Owned Cybersecurity Consulting</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -39,7 +42,7 @@
 
     /* Subtle pattern background */
     .bg-pattern {
-      background-image: 
+      background-image:
         radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
         radial-gradient(circle at 80% 50%, rgba(168, 85, 247, 0.03) 0%, transparent 50%);
     }
@@ -80,12 +83,15 @@
     .logo-icon {
       width: 36px;
       height: 36px;
-      background: var(--gradient-primary);
-      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.25rem;
+    }
+
+    .logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     .logo span {
@@ -132,9 +138,12 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: 
-        radial-gradient(ellipse at 30% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+      background-image: url('images/hero_background1.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.4;
+      mix-blend-mode: overlay;
       pointer-events: none;
     }
 
@@ -348,8 +357,15 @@
     }
 
     .service-icon {
-      font-size: 2rem;
+      width: 60px;
+      height: 60px;
       margin-bottom: 1rem;
+    }
+
+    .service-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
     .service-card h3 {
@@ -492,7 +508,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: 
+      background:
         radial-gradient(ellipse at 50% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 60%);
       pointer-events: none;
     }
@@ -565,18 +581,20 @@
     }
   </style>
 </head>
+
 <body class="bg-pattern">
 
   <!-- Navigation -->
   <nav class="nav">
     <div class="nav-inner">
       <a href="index.html" class="logo">
-        <div class="logo-icon">🦅</div>
+        <div class="logo-icon"><img src="images/logo.jpg" alt="JEAA Infosec" style="border-radius: 50%;"></div>
         JEAA <span>INFOSEC</span>
       </a>
       <ul class="nav-links">
         <li><a href="Services.html">Services</a></li>
         <li><a href="About.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
         <li><a href="kev.html">KEV Tracker</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -589,7 +607,8 @@
       <div class="hero-badge">Veteran-Owned · USAF Cyber Operations</div>
       <h1>OFFENSIVE SECURITY<br><span class="gradient-text">RESEARCH-DRIVEN DEFENSE</span></h1>
       <p class="hero-sub">
-        Boutique penetration testing by a senior operator. Manual testing, real findings, actionable results. Servicio disponible en Español.
+        Boutique penetration testing by a senior operator. Manual testing, real findings, actionable results. Servicio
+        disponible en Español.
       </p>
       <div class="hero-cta">
         <a href="#contact" class="btn btn-primary">Schedule Consultation →</a>
@@ -629,24 +648,44 @@
       </div>
       <div class="services-grid">
         <div class="service-card">
-          <div class="service-icon">🌐</div>
+          <div class="service-icon"><img src="images/web_icon.jpg" alt="Web & API Testing"
+              style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></div>
           <h3>WEB & API TESTING</h3>
-          <p>Deep-dive manual testing of web applications and APIs. Authentication, authorization, injection, business logic — the full attack surface.</p>
+          <p>Deep-dive manual testing of web applications and APIs. Authentication, authorization, injection, business
+            logic — the full attack surface.</p>
+          <a href="services/web-penetration-testing.html"
+            style="color: var(--accent-cyan); text-decoration: none; font-weight: 700; font-size: 0.9rem; margin-top: 1rem; display: inline-block;">View
+            Details →</a>
         </div>
         <div class="service-card">
-          <div class="service-icon">📱</div>
+          <div class="service-icon"><img src="images/mobile_icon.jpg" alt="Mobile Application Testing"
+              style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></div>
           <h3>MOBILE APPLICATION</h3>
-          <p>iOS and Android security assessments. Binary analysis, API testing, data storage, and runtime manipulation.</p>
+          <p>iOS and Android security assessments. Binary analysis, API testing, data storage, and runtime manipulation.
+          </p>
+          <a href="services/mobile-security-assessment.html"
+            style="color: var(--accent-cyan); text-decoration: none; font-weight: 700; font-size: 0.9rem; margin-top: 1rem; display: inline-block;">View
+            Details →</a>
         </div>
         <div class="service-card">
-          <div class="service-icon">☁️</div>
+          <div class="service-icon"><img src="images/cloud_icon.jpg" alt="Cloud Security"
+              style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></div>
           <h3>CLOUD SECURITY</h3>
-          <p>AWS, Azure, GCP configuration review and penetration testing. IAM, storage, network segmentation, and privilege escalation paths.</p>
+          <p>AWS, Azure, GCP configuration review and penetration testing. IAM, storage, network segmentation, and
+            privilege escalation paths.</p>
+          <a href="services/cloud-security-assessment.html"
+            style="color: var(--accent-cyan); text-decoration: none; font-weight: 700; font-size: 0.9rem; margin-top: 1rem; display: inline-block;">View
+            Details →</a>
         </div>
         <div class="service-card">
-          <div class="service-icon">🔒</div>
+          <div class="service-icon"><img src="images/network_icon.jpg" alt="Internal Network Security"
+              style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></div>
           <h3>INTERNAL NETWORK</h3>
-          <p>On-site or remote internal assessments. Active Directory attacks, lateral movement, and domain compromise scenarios.</p>
+          <p>On-site or remote internal assessments. Active Directory attacks, lateral movement, and domain compromise
+            scenarios.</p>
+          <a href="services/internal-network-testing.html"
+            style="color: var(--accent-cyan); text-decoration: none; font-weight: 700; font-size: 0.9rem; margin-top: 1rem; display: inline-block;">View
+            Details →</a>
         </div>
       </div>
     </div>
@@ -711,10 +750,12 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-inner">
-      <div class="footer-tagline">Veteran-Owned Cybersecurity Consulting | Offensive Security | Research-Driven Defense | Servicio en Español</div>
+      <div class="footer-tagline">Veteran-Owned Cybersecurity Consulting | Offensive Security | Research-Driven Defense
+        | Servicio en Español</div>
       <p>© 2025 JEAA Infosec LLC. Veteran-Owned Small Business.</p>
     </div>
   </footer>
 
 </body>
+
 </html>
