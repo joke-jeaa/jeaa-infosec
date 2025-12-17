@@ -10,6 +10,15 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
     rel="stylesheet">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VPCXJ52W2G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-VPCXJ52W2G');
+  </script>
   <style>
     * {
       margin: 0;
@@ -650,7 +659,7 @@
         <li><a href="About.html">About</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="kev.html" class="active">KEV Tracker</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="https://calendar.app.google/KQb9LHexbWgyS1pT7">Contact</a></li>
       </ul>
     </div>
   </nav>
@@ -689,7 +698,7 @@
 
       <div class="stats-grid">
         <div class="stat-box">
-          <div class="stat-value">1200+</div>
+          <div class="stat-value">1,478</div>
           <div class="stat-label">Total KEV Entries</div>
         </div>
         <div class="stat-box">
@@ -725,64 +734,104 @@
           </thead>
           <tbody>
             <tr>
-              <td><span class="cve-id">CVE-2025-55182</span></td>
+              <td><span class="cve-id">CVE-2025-59718</span></td>
               <td>
-                <span class="vendor">Meta</span><br>
-                <span class="vuln-type">React Server Components</span>
+                <span class="vendor">Fortinet</span><br>
+                <span class="vuln-type">Multiple Products</span>
               </td>
-              <td>Remote Code Execution via payload decoding flaw</td>
+              <td>SAML authentication bypass via improper cryptographic signature verification</td>
               <td><span class="severity critical">Critical</span></td>
-              <td><span class="date-added">Dec 2025</span></td>
+              <td><span class="date-added">Dec 16, 2025</span></td>
             </tr>
             <tr>
-              <td><span class="cve-id">CVE-2025-62215</span></td>
+              <td><span class="cve-id">CVE-2025-43529</span></td>
+              <td>
+                <span class="vendor">Apple</span><br>
+                <span class="vuln-type">WebKit (iOS/macOS/Safari)</span>
+              </td>
+              <td>Use-after-free vulnerability in WebKit</td>
+              <td><span class="severity critical">Critical</span></td>
+              <td><span class="date-added">Dec 15, 2025</span></td>
+            </tr>
+            <tr>
+              <td><span class="cve-id">CVE-2025-14611</span></td>
+              <td>
+                <span class="vendor">Gladinet</span><br>
+                <span class="vuln-type">CentreStack & Triofox</span>
+              </td>
+              <td>Hardcoded cryptographic keys enabling arbitrary local file inclusion</td>
+              <td><span class="severity critical">Critical</span></td>
+              <td><span class="date-added">Dec 15, 2025</span></td>
+            </tr>
+            <tr>
+              <td><span class="cve-id">CVE-2025-14174</span></td>
+              <td>
+                <span class="vendor">Google</span><br>
+                <span class="vuln-type">Chromium ANGLE</span>
+              </td>
+              <td>Out of bounds memory access in ANGLE</td>
+              <td><span class="severity high">High</span></td>
+              <td><span class="date-added">Dec 12, 2025</span></td>
+            </tr>
+            <tr>
+              <td><span class="cve-id">CVE-2018-4063</span></td>
+              <td>
+                <span class="vendor">Sierra Wireless</span><br>
+                <span class="vuln-type">AirLink ALEOS (EOL)</span>
+              </td>
+              <td>Unrestricted file upload allowing executable code deployment</td>
+              <td><span class="severity critical">Critical</span></td>
+              <td><span class="date-added">Dec 12, 2025</span></td>
+            </tr>
+            <tr>
+              <td><span class="cve-id">CVE-2025-58360</span></td>
+              <td>
+                <span class="vendor">OSGeo</span><br>
+                <span class="vuln-type">GeoServer</span>
+              </td>
+              <td>XXE in WMS GetMap operations</td>
+              <td><span class="severity critical">Critical</span></td>
+              <td><span class="date-added">Dec 11, 2025</span></td>
+            </tr>
+            <tr>
+              <td><span class="cve-id">CVE-2025-62221</span></td>
               <td>
                 <span class="vendor">Microsoft</span><br>
-                <span class="vuln-type">Windows Kernel</span>
+                <span class="vuln-type">Windows</span>
               </td>
-              <td>Race condition privilege escalation to SYSTEM</td>
+              <td>Use after free in Cloud Files Mini Filter Driver (privilege escalation)</td>
               <td><span class="severity critical">Critical</span></td>
-              <td><span class="date-added">Dec 2025</span></td>
+              <td><span class="date-added">Dec 9, 2025</span></td>
             </tr>
             <tr>
-              <td><span class="cve-id">CVE-2025-9242</span></td>
+              <td><span class="cve-id">CVE-2025-6218</span></td>
               <td>
-                <span class="vendor">WatchGuard</span><br>
-                <span class="vuln-type">Firewalls</span>
+                <span class="vendor">RARLAB</span><br>
+                <span class="vuln-type">WinRAR</span>
               </td>
-              <td>Authentication bypass in management interface</td>
+              <td>Path traversal vulnerability allowing code execution</td>
               <td><span class="severity critical">Critical</span></td>
-              <td><span class="date-added">Dec 2025</span></td>
+              <td><span class="date-added">Dec 9, 2025</span></td>
             </tr>
             <tr>
-              <td><span class="cve-id">CVE-2025-41244</span></td>
+              <td><span class="cve-id">CVE-2025-66644</span></td>
               <td>
-                <span class="vendor">Broadcom VMware</span><br>
-                <span class="vuln-type">Aria Operations</span>
+                <span class="vendor">Array Networks</span><br>
+                <span class="vuln-type">ArrayOS AG</span>
               </td>
-              <td>Privilege escalation from VM user to root</td>
+              <td>OS command injection allowing arbitrary command execution</td>
+              <td><span class="severity critical">Critical</span></td>
+              <td><span class="date-added">Dec 8, 2025</span></td>
+            </tr>
+            <tr>
+              <td><span class="cve-id">CVE-2022-37055</span></td>
+              <td>
+                <span class="vendor">D-Link</span><br>
+                <span class="vuln-type">Routers (EOL)</span>
+              </td>
+              <td>Buffer overflow impacting confidentiality, integrity, and availability</td>
               <td><span class="severity high">High</span></td>
-              <td><span class="date-added">Dec 2025</span></td>
-            </tr>
-            <tr>
-              <td><span class="cve-id">CVE-2025-24893</span></td>
-              <td>
-                <span class="vendor">XWiki</span><br>
-                <span class="vuln-type">XWiki Platform</span>
-              </td>
-              <td>Remote code execution via template injection</td>
-              <td><span class="severity critical">Critical</span></td>
-              <td><span class="date-added">Dec 2025</span></td>
-            </tr>
-            <tr>
-              <td><span class="cve-id">CVE-2025-54309</span></td>
-              <td>
-                <span class="vendor">CrushFTP</span><br>
-                <span class="vuln-type">File Transfer Server</span>
-              </td>
-              <td>Authentication bypass via alternate channel</td>
-              <td><span class="severity critical">Critical</span></td>
-              <td><span class="date-added">Nov 2025</span></td>
+              <td><span class="date-added">Dec 8, 2025</span></td>
             </tr>
           </tbody>
         </table>
@@ -889,7 +938,7 @@
       <h2>WORRIED ABOUT KEV EXPOSURE?</h2>
       <p>Let's assess your environment for actively exploited vulnerabilities. Get clarity on your real risk, not just
         scanner output.</p>
-      <a href="mailto:contact@jeaainfosec.com" class="btn btn-primary">Request Assessment →</a>
+      <a href="https://calendar.app.google/KQb9LHexbWgyS1pT7" class="btn btn-primary">Request Assessment →</a>
     </div>
   </section>
 
