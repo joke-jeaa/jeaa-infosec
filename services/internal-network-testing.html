@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internal Network Penetration Testing | Active Directory & Lateral Movement | JEAA Infosec</title>
+    <meta name="description" content="Internal network penetration testing: Active Directory attacks, privilege escalation, lateral movement, credential harvesting, and domain compromise. On-site or remote via secure appliance. Veteran-owned.">
+    <link rel="canonical" href="https://jeaainfosec.com/services/internal-network-testing.html">
+    <meta property="og:title" content="Internal Network Penetration Testing | JEAA Infosec">
+    <meta property="og:description" content="Assume-breach testing from inside your network. AD attacks, lateral movement, privilege escalation. On-site or remote via Zima Red appliance.">
+    <meta property="og:url" content="https://jeaainfosec.com/services/internal-network-testing.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VPCXJ52W2G"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-VPCXJ52W2G');
+    </script>
+    <style>
+        /* Reuse previous styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #0f0f0f;
+            --bg-card: #141414;
+            --accent-cyan: #00d4ff;
+            --accent-purple: #a855f7;
+            --gradient-primary: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --border: #1a1a1a;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .bg-pattern {
+            background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.01) 0px, rgba(255, 255, 255, 0.01) 2px, transparent 2px, transparent 10px);
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid var(--border);
+            z-index: 99;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron';
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            letter-spacing: 0.15em;
+        }
+
+        .logo span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: 'Rajdhani';
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .service-hero {
+            padding: 10rem 2rem 5rem;
+            text-align: center;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .hero-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .service-hero h1 {
+            font-family: 'Orbitron';
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .service-hero p {
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .content-section {
+            padding: 5rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron';
+            font-size: 1.75rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 2rem;
+            background: var(--gradient-primary);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        .process-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .process-number {
+            font-family: 'Orbitron';
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.05);
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        .process-card h3 {
+            font-family: 'Rajdhani';
+            color: var(--accent-cyan);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .process-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .deliverables-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .deliverables-list {
+            list-style: none;
+        }
+
+        .deliverables-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .deliverables-list li::before {
+            content: '🔒';
+            color: var(--accent-purple);
+        }
+
+        .deliverables-list strong {
+            color: var(--text-primary);
+        }
+
+        .cta-box {
+            margin-top: 5rem;
+            padding: 4rem;
+            text-align: center;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.05), transparent 70%);
+            border: 1px solid var(--border);
+        }
+
+        .btn {
+            display: inline-flex;
+            padding: 1rem 2rem;
+            background: var(--gradient-primary);
+            color: #000;
+            text-decoration: none;
+            font-family: 'Rajdhani';
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .deliverables-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="../index.html" class="logo">🦅 JEAA <span>INFOSEC</span></a>
+            <ul class="nav-links">
+                <li><a href="../Services.html">Services</a></li>
+                <li><a href="../About.html">About</a></li>
+                <li><a href="../kev.html">KEV Tracker</a></li>
+                <li><a href="https://calendar.app.google/KQb9LHexbWgyS1pT7">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="service-hero">
+        <div class="hero-icon"><img src="../images/network_icon.jpg" alt="Network Security Icon"></div>
+        <h1>INTERNAL NETWORK TESTING</h1>
+        <p>"Assume Breach" scenarios. We simulate an attacker who has already landed on a workstation. Can they reach
+            your Crown Jewels?</p>
+    </header>
+
+    <section class="content-section">
+        <h2 class="section-title">THE KILL CHAIN</h2>
+        <div class="process-grid">
+            <div class="process-card">
+                <div class="process-number">01</div>
+                <h3>Initial Access</h3>
+                <p>We start with a standard user account or a rogue device on your network. No Domain Admin privileges.
+                    Just a foothold.</p>
+            </div>
+            <div class="process-card">
+                <div class="process-number">02</div>
+                <h3>Enumeration</h3>
+                <p>We map the Active Directory environment. Identifying Domain Controllers, File Shares, vulnerable
+                    services, and trust relationships.</p>
+            </div>
+            <div class="process-card">
+                <div class="process-number">03</div>
+                <h3>Lateral Movement</h3>
+                <p>Harvesting credentials. Pass-the-Hash, Kerberoasting, and exploiting unpatched internal services to
+                    move from system to system.</p>
+            </div>
+            <div class="process-card">
+                <div class="process-number">04</div>
+                <h3>Objective</h3>
+                <p>Proving impact. Can we access the CEO's email? The financial database? The intellectual property? We
+                    prove the risk without disrupting operations.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">ADVERSARY TACTICS</h2>
+        <div class="deliverables-grid">
+            <div>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Internal networks are often the soft underbelly of an organization. Once the perimeter is breached,
+                    attackers often find little resistance.
+                </p>
+                <ul class="deliverables-list">
+                    <li><strong>Active Directory:</strong> Kerberoasting, AS-REP Roasting, DCSync</li>
+                    <li><strong>Network Services:</strong> SMB Signing, LLMNR/NBT-NS Poisoning</li>
+                    <li><strong>Privilege Escalation:</strong> GPO abuse, Misconfigured ACLs</li>
+                    <li><strong>Credential Access:</strong> LSASS dumping, Token manipulation</li>
+                    <li><strong>Lateral Movement:</strong> PsExec, WMI, WinRM abuse</li>
+                </ul>
+            </div>
+            <div style="background: var(--bg-card); padding: 2rem; border: 1px solid var(--border);">
+                <h3 style="font-family: 'Orbitron'; margin-bottom: 1rem;">YOUR DELIVERABLES</h3>
+                <ul class="deliverables-list">
+                    <li><strong>Attack Path Graph:</strong> Visual map of the compromise route.</li>
+                    <li><strong>Executive Briefing:</strong> Non-technical impact summary.</li>
+                    <li><strong>Vulnerability Details:</strong> Technical deep-dive.</li>
+                    <li><strong>Hardening Guide:</strong> AD and GPO best practices.</li>
+                    <li><strong>Debrief Workshop:</strong> Walkthrough with your blue team.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cta-box">
+            <h2 style="font-family: 'Orbitron'; font-size: 2rem; margin-bottom: 1rem;">TEST YOUR DEFENSES</h2>
+            <p style="color: var(--text-secondary);">See how far an attacker can really go.</p>
+            <a href="https://calendar.app.google/KQb9LHexbWgyS1pT7" class="btn">Request Quote</a>
+        </div>
+    </section>
+</body>
+
+</html>

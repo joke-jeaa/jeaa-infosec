@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Application & API Penetration Testing Services | Manual Security Testing | JEAA Infosec</title>
+    <meta name="description" content="Expert manual web application and API penetration testing. OWASP methodology, business logic testing, SQL injection, XSS, SSRF, IDOR exploitation. Proof-of-concept for every finding. Veteran-owned, GPEN/GWAPT certified.">
+    <link rel="canonical" href="https://jeaainfosec.com/services/web-penetration-testing.html">
+    <meta property="og:title" content="Web & API Penetration Testing | JEAA Infosec">
+    <meta property="og:description" content="Go beyond automated scanners. Manual exploitation to find the critical logic flaws that compromise your business. Senior researcher on every engagement.">
+    <meta property="og:url" content="https://jeaainfosec.com/services/web-penetration-testing.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+
+    <!-- Service Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Web Application & API Penetration Testing",
+      "provider": {
+        "@type": "ProfessionalService",
+        "name": "JEAA Infosec LLC",
+        "url": "https://jeaainfosec.com"
+      },
+      "description": "Comprehensive manual penetration testing of web applications and APIs to identify vulnerabilities that automated scanners miss. Includes OWASP Top 10 testing, business logic analysis, and proof-of-concept exploitation.",
+      "serviceType": "Web Application Penetration Testing",
+      "areaServed": "US"
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VPCXJ52W2G"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-VPCXJ52W2G');
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #0f0f0f;
+            --bg-card: #141414;
+            --accent-cyan: #00d4ff;
+            --accent-purple: #a855f7;
+            --gradient-primary: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --border: #1a1a1a;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .bg-pattern {
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(168, 85, 247, 0.03) 0%, transparent 50%);
+        }
+
+        /* Nav */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            letter-spacing: 0.15em;
+        }
+
+        .logo span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Hero */
+        .service-hero {
+            padding: 10rem 2rem 5rem;
+            text-align: center;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .service-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .hero-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .service-hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .service-hero p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Content */
+        .content-section {
+            padding: 5rem 2rem;
+        }
+
+        .content-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.75rem;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 2rem;
+            background: var(--gradient-primary);
+        }
+
+        /* Process Steps */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        .process-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .process-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.05);
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            line-height: 1;
+        }
+
+        .process-card h3 {
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--accent-cyan);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .process-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* Deliverables */
+        .deliverables-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .deliverables-list {
+            list-style: none;
+        }
+
+        .deliverables-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .deliverables-list li::before {
+            content: '✦';
+            color: var(--accent-purple);
+        }
+
+        .deliverables-list strong {
+            color: var(--text-primary);
+        }
+
+        /* CTA */
+        .cta-box {
+            margin-top: 5rem;
+            padding: 4rem;
+            text-align: center;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.05), transparent 70%);
+            border: 1px solid var(--border);
+        }
+
+        .btn {
+            display: inline-flex;
+            padding: 1rem 2rem;
+            background: var(--gradient-primary);
+            color: var(--bg-primary);
+            text-decoration: none;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 2rem;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .deliverables-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="../index.html" class="logo">
+                <div class="logo-icon"
+                    style="width: 36px; height: 36px; margin-right: 0.75rem; border-radius: 50%; overflow: hidden;">
+                    <img src="../images/logo.jpg" alt="JEAA Infosec"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                JEAA <span>INFOSEC</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="../Services.html">Services</a></li>
+                <li><a href="../About.html">About</a></li>
+                <li><a href="../kev.html">KEV Tracker</a></li>
+                <li><a href="https://calendar.app.google/KQb9LHexbWgyS1pT7">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="service-hero">
+        <div class="hero-icon">
+            <img src="../images/web_icon.jpg" alt="Web Security Icon">
+        </div>
+        <h1>WEB & API PENETRATION TESTING</h1>
+        <p>Go beyond automated scanners. Real manual exploitation to find the critical logic flaws that compromise your
+            business.</p>
+    </header>
+
+    <section class="content-section">
+        <div class="content-inner">
+            <h2 class="section-title">THE ASSESSMENT PROCESS</h2>
+            <div class="process-grid">
+                <div class="process-card">
+                    <div class="process-number">01</div>
+                    <h3>Reconnaissance</h3>
+                    <p>We map your entire attack surface. Subdomain enumeration, technology stack fingerprinting, and
+                        identifying unlinked endpoints. We find what you forgot was online.</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">02</div>
+                    <h3>Threat Modeling</h3>
+                    <p>We analyze your business logic. Where is the money? Where is the PII? We identify critical
+                        workflows (e.g., payment, admin creation) to prioritize deeper testing.</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">03</div>
+                    <h3>Exploitation</h3>
+                    <p>The core phase. Manual testing for OWASP Top 10 and beyond. Bypassing authentication, injecting
+                        payloads (SQLi, XSS), and manipulating API restrictions (BOLA/IDOR).</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">04</div>
+                    <h3>Reporting</h3>
+                    <p>No false positives. Every finding is verified with a Proof-of-Concept exploit. We provide a risk
+                        rating based on real-world impact, not just CVSS scores.</p>
+                </div>
+            </div>
+
+            <h2 class="section-title">WHAT WE TEST</h2>
+            <div class="deliverables-grid">
+                <div>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                        Modern web apps are complex. We test the entire stack, from the frontend client to the backend
+                        API and database interactions.
+                    </p>
+                    <ul class="deliverables-list">
+                        <li><strong>Authentication:</strong> OAuth/SAML bypasses, weak tokens</li>
+                        <li><strong>Authorization:</strong> IDOR, Privilege Escalation (Vertical/Horizontal)</li>
+                        <li><strong>Injection:</strong> SQL, NoSQL, Command Injection, SSTI</li>
+                        <li><strong>Business Logic:</strong> Payment bypasses, Race conditions</li>
+                        <li><strong>API Security:</strong> Mass Assignment, Rate Limiting, BOLA</li>
+                        <li><strong>Client-Side:</strong> XSS, CSRF, DOM Clobbering</li>
+                    </ul>
+                </div>
+                <div style="background: var(--bg-card); padding: 2rem; border: 1px solid var(--border);">
+                    <h3 style="font-family: 'Orbitron', sans-serif; margin-bottom: 1rem;">YOUR DELIVERABLES</h3>
+                    <ul class="deliverables-list">
+                        <li><strong>Executive Summary:</strong> High-level risk overview for leadership.</li>
+                        <li><strong>Technical Report:</strong> Step-by-step reproduction guides for developers.</li>
+                        <li><strong>Risk Matrix:</strong> Impact vs. Likelihood analysis.</li>
+                        <li><strong>Remediation Guide:</strong> Code snippets and config fixes.</li>
+                        <li><strong>Attestation Letter:</strong> Formal proof of testing for compliance (SOC2/ISO).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cta-box">
+                <h2 style="font-family: 'Orbitron', sans-serif; font-size: 2rem; margin-bottom: 1rem;">SECURE YOUR
+                    APPLICATION</h2>
+                <p style="color: var(--text-secondary);">Ready to find the gaps before the attackers do?</p>
+                <a href="https://calendar.app.google/KQb9LHexbWgyS1pT7" class="btn">Request
+                    Scoping Call</a>
+            </div>
+
+        </div>
+    </section>
+
+</body>
+
+</html>
